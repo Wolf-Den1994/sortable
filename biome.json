@@ -1,60 +1,58 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.5.1/schema.json",
-  "organizeImports": {
-    "enabled": false
+  "$schema": "https://biomejs.dev/schemas/2.1.1/schema.json",
+  "files": {
+    "ignoreUnknown": false,
+    "includes": ["**", "!tamagui-web.css", "!.tamagui", "!.expo", "!.app.json"]
   },
   "linter": {
     "enabled": true,
     "rules": {
       "correctness": {
-        "useExhaustiveDependencies": "off",
-        "noInnerDeclarations": "off",
-        "noUnnecessaryContinue": "off",
-        "noConstructorReturn": "off"
+        "useExhaustiveDependencies": "error",
+        "noInnerDeclarations": "error",
+        "noConstructorReturn": "error"
       },
       "suspicious": {
-        "noImplicitAnyLet": "off",
-        "noConfusingVoidType": "off",
-        "noEmptyInterface": "off",
-        "noExplicitAny": "off",
-        "noArrayIndexKey": "off",
-        "noDoubleEquals": "off",
-        "noConsoleLog": "error",
-        "noAssignInExpressions": "off",
-        "noRedeclare": "off"
+        "noImplicitAnyLet": "error",
+        "noConfusingVoidType": "error",
+        "noEmptyInterface": "error",
+        "noExplicitAny": "error",
+        "noArrayIndexKey": "error",
+        "noDoubleEquals": "error",
+        "noAssignInExpressions": "error",
+        "noRedeclare": "error"
       },
       "style": {
-        "noParameterAssign": "off",
-        "noNonNullAssertion": "off",
-        "noArguments": "off",
-        "noUnusedTemplateLiteral": "off",
-        "useDefaultParameterLast": "off",
-        "useConst": "off",
-        "useEnumInitializers": "off",
-        "useTemplate": "off",
-        "useSelfClosingElements": "off"
+        "noParameterAssign": "error",
+        "noNonNullAssertion": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useDefaultParameterLast": "error",
+        "useConst": "error",
+        "useEnumInitializers": "error",
+        "useTemplate": "error",
+        "useSelfClosingElements": "error"
       },
       "security": {
         "noDangerouslySetInnerHtml": "off",
         "noDangerouslySetInnerHtmlWithChildren": "off"
       },
       "performance": {
-        "noDelete": "off",
-        "noAccumulatingSpread": "off"
+        "noDelete": "error",
+        "noAccumulatingSpread": "error"
       },
       "complexity": {
         "noForEach": "off",
-        "noBannedTypes": "off",
-        "useLiteralKeys": "off",
+        "noBannedTypes": "error",
+        "useLiteralKeys": "error",
         "useSimplifiedLogicExpression": "off",
-        "useOptionalChain": "off"
+        "useOptionalChain": "error"
       },
       "a11y": {
-        "noSvgWithoutTitle": "off",
-        "useMediaCaption": "off",
-        "noHeaderScope": "off",
-        "useAltText": "off",
-        "useButtonType": "off"
+        "noSvgWithoutTitle": "error",
+        "useMediaCaption": "error",
+        "noHeaderScope": "error",
+        "useAltText": "error",
+        "useButtonType": "error"
       }
     }
   },
@@ -63,15 +61,17 @@
     "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineWidth": 90,
-    "ignore": ["**/*/generated-new.ts", "**/*/generated-v2.ts"]
+    "lineWidth": 120
   },
   "javascript": {
     "formatter": {
-      "trailingComma": "es5",
+      "trailingCommas": "all",
       "jsxQuoteStyle": "double",
-      "semicolons": "asNeeded",
-      "quoteStyle": "single"
+      "semicolons": "always",
+      "quoteStyle": "single",
+      "arrowParentheses": "always",
+      "bracketSpacing": true,
+      "bracketSameLine": false
     }
   }
 }
