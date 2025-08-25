@@ -1,4 +1,4 @@
-import { YStack } from 'tamagui';
+import {Text, YStack} from 'tamagui';
 import { useCallback, useEffect, useState } from 'react';
 import Sortable, { type SortableFlexDragEndParams } from 'react-native-sortables';
 import Animated, { useAnimatedRef, SlideOutUp, SlideInUp } from 'react-native-reanimated';
@@ -7,6 +7,8 @@ import MyComponent from '../components/MyComponent';
 import { PAGE_PADDING } from '../constants/layout';
 import TapToDismissLayout from '../components/TapToDismissLayout';
 import StyledContextMenu from '../components/StyledContextMenu';
+
+const delay = 300;
 
 export default function TabOneScreen() {
   const [data, setData] = useState<string[]>([]);
@@ -28,6 +30,7 @@ export default function TabOneScreen() {
   return (
     <TapToDismissLayout>
       <YStack flex={1} items="center" gap="$8" p={PAGE_PADDING} bg="$accent7">
+        <Text color="$red6">delay: {delay}</Text>
         <Animated.ScrollView
           ref={scrollableRef}
           showsVerticalScrollIndicator={false}
@@ -38,7 +41,7 @@ export default function TabOneScreen() {
             gap={10}
             justifyContent="space-between"
             sortEnabled={true}
-            dragActivationDelay={600}
+            dragActivationDelay={delay}
             scrollableRef={scrollableRef}
             enableActiveItemSnap={false}
             onDragEnd={handleDragEnd}
