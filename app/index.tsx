@@ -1,4 +1,4 @@
-import {Text, YStack} from 'tamagui';
+import { YStack, Text } from 'tamagui';
 import { useCallback, useEffect, useState } from 'react';
 import Sortable, { type SortableFlexDragEndParams } from 'react-native-sortables';
 import Animated, { useAnimatedRef, SlideOutUp, SlideInUp } from 'react-native-reanimated';
@@ -11,6 +11,7 @@ import StyledContextMenu from '../components/StyledContextMenu';
 const delay = 300;
 
 export default function TabOneScreen() {
+  const [dragEnable, setDragEnable] = useState(false);
   const [data, setData] = useState<string[]>([]);
   const [sortedDataIds, setSortedDataIds] = useState<number[]>([]);
   const scrollableRef = useAnimatedRef<Animated.ScrollView>();
@@ -28,8 +29,9 @@ export default function TabOneScreen() {
   }, []);
 
   return (
-    <TapToDismissLayout>
-      <YStack flex={1} items="center" gap="$8" p={PAGE_PADDING} bg="$accent7">
+    <TapToDismissLayout onTapEnd={() => setDragEnable(false)}>
+      <YStack flex={1} items="center" gap={10} p={PAGE_PADDING} bg="$accent7">
+        <Text color="$red6">dragEnable: {dragEnable ? 'true' : 'false'}</Text>
         <Text color="$red6">delay: {delay}</Text>
         <Animated.ScrollView
           ref={scrollableRef}
@@ -40,7 +42,7 @@ export default function TabOneScreen() {
           <Sortable.Flex
             gap={10}
             justifyContent="space-between"
-            sortEnabled={true}
+            sortEnabled={dragEnable}
             dragActivationDelay={delay}
             scrollableRef={scrollableRef}
             enableActiveItemSnap={false}
@@ -50,8 +52,8 @@ export default function TabOneScreen() {
             itemExiting={SlideOutUp.duration(200)}
           >
             {data.map((item) => (
-              <TapToDismissLayout key={item}>
-                <StyledContextMenu>
+              <TapToDismissLayout key={item} onTapEnd={() => setDragEnable(false)}>
+                <StyledContextMenu onDragStart={() => setDragEnable(true)} dragEnable={dragEnable}>
                   <MyComponent item={item} />
                 </StyledContextMenu>
               </TapToDismissLayout>
