@@ -1,5 +1,6 @@
 import * as ContextMenu from 'zeego/context-menu';
 import type { PropsWithChildren, CSSProperties } from 'react';
+import { Platform } from 'react-native';
 
 const itemHeight = 25;
 
@@ -43,29 +44,52 @@ const contextStyles: Record<string, CSSProperties> = {
 
 type Props = {
   onDragStart?: () => void;
+  dragEnable?: boolean;
 } & PropsWithChildren;
 
-const StyledContextMenu = ({ children, onDragStart }: Props) => {
+const StyledContextMenu = ({ children, onDragStart, dragEnable }: Props) => {
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger>{children}</ContextMenu.Trigger>
       <ContextMenu.Content style={contextStyles.content}>
         <ContextMenu.Preview>{children}</ContextMenu.Preview>
 
-        <ContextMenu.Item
-          style={contextStyles.item}
-          onSelect={() => {
-            console.log('add');
-          }}
-          key="favorite"
-        >
-          <ContextMenu.ItemIcon ios={{ name: 'star' }} androidIconName="star" />
-          <ContextMenu.ItemTitle>Add to favorite</ContextMenu.ItemTitle>
-        </ContextMenu.Item>
+        {Platform.OS === 'android' && !dragEnable && (
+          <>
+            <ContextMenu.Item
+              style={contextStyles.item}
+              onSelect={() => {
+                console.log('add');
+              }}
+              key="favorite"
+            >
+              <ContextMenu.ItemIcon ios={{ name: 'star' }} androidIconName="star" />
+              <ContextMenu.ItemTitle>Add to favorite</ContextMenu.ItemTitle>
+            </ContextMenu.Item>
 
-        <ContextMenu.Item style={contextStyles.item} onSelect={onDragStart} key="drag">
-          <ContextMenu.ItemTitle>Reorder</ContextMenu.ItemTitle>
-        </ContextMenu.Item>
+            <ContextMenu.Item style={contextStyles.item} onSelect={onDragStart} key="drag">
+              <ContextMenu.ItemTitle>Reorder</ContextMenu.ItemTitle>
+            </ContextMenu.Item>
+          </>
+        )}
+        {Platform.OS === 'ios' && (
+          <>
+            <ContextMenu.Item
+              style={contextStyles.item}
+              onSelect={() => {
+                console.log('add');
+              }}
+              key="favorite"
+            >
+              <ContextMenu.ItemIcon ios={{ name: 'star' }} androidIconName="star" />
+              <ContextMenu.ItemTitle>Add to favorite</ContextMenu.ItemTitle>
+            </ContextMenu.Item>
+
+            <ContextMenu.Item style={contextStyles.item} onSelect={onDragStart} key="drag">
+              <ContextMenu.ItemTitle>Reorder</ContextMenu.ItemTitle>
+            </ContextMenu.Item>
+          </>
+        )}
       </ContextMenu.Content>
     </ContextMenu.Root>
   );
